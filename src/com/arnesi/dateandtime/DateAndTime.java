@@ -1,8 +1,9 @@
 package com.arnesi.dateandtime;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.time.Month;
 import java.time.Period;
@@ -13,18 +14,20 @@ import java.util.stream.Stream;
 
 
 public class DateAndTime {
+	
+	private final static String PATH = "sandbox\\training\\springTraining\\Java-8-Examples\\src\\com\\arnesi\\dateandtime\\"; 
+	
 	public static void main(String... args) {
 		
 		List<Person> persons = new ArrayList<>();
 		
+		//Java 7
+		Path path = Paths.get("c:",PATH, "people.txt");	
+		
 		//Try with Resources
 		try (
-			BufferedReader reader = 
-					new BufferedReader(new InputStreamReader(
-							DateAndTime.class.getResourceAsStream("people.txt")));
-			
-				Stream<String> stream = reader.lines(); //Retorna un Stream of stings
-			
+			//java 7 Files.lines() - Nueva forma de leer archivos, desde Java 7
+			Stream<String> stream = Files.lines(path); 
 		) {
 			stream.map(line -> {
 				String[] s = line.split(" ");
